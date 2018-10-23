@@ -13,8 +13,8 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
+  - Ground
+  - Ladders
   - 
   - 
   - 
@@ -43,6 +43,9 @@ TagManager:
     locked: 0
   - name: Background
     uniqueID: 754669963
+    locked: 0
+  - name: Ladders
+    uniqueID: 1135088537
     locked: 0
   - name: Player
     uniqueID: 2392675909

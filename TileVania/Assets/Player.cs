@@ -57,6 +57,9 @@ public class Player : MonoBehaviour
         Vector2 climbVelocity = new Vector2(myRigidBody.velocity.x, climbThrow * climbSpeed);
         myRigidBody.velocity = climbVelocity;
 
+        bool playerHasVeritcalSpeed = Mathf.Abs(myRigidBody.velocity.y) > Mathf.Epsilon;
+        myAnimator.SetBool("isClimbing", playerHasVeritcalSpeed);
+
     }
 
 
