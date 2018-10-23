@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     [SerializeField] float runSpeed = 5f;
     [SerializeField] float jumpSpeed = 5f;
     [SerializeField] float climbSpeed = 5f;
+    
 
     // State
     bool isAlive = true;
@@ -19,12 +20,16 @@ public class Player : MonoBehaviour
     Animator myAnimator;
     Collider2D myCollider2D;
 
-	// Use this for initialization
-	void Start ()
+    float playerGravityAtStart;
+    
+
+    // Use this for initialization
+    void Start ()
     {
         myRigidBody = GetComponent<Rigidbody2D>();
         myAnimator = GetComponent<Animator>();
         myCollider2D = GetComponent<Collider2D>();
+        playerGravityAtStart = myRigidBody.gravityScale;
 	}
 	
 	// Update is called once per frame
@@ -51,11 +56,14 @@ public class Player : MonoBehaviour
     {
         if (!myCollider2D.IsTouchingLayers(LayerMask.GetMask("Ladders")))
         {
+            myAnimator.SetBool("isClimbing", false);
+            myRigidBody.gravityScale = playerGravityAtStart;
             return;
         }
         float climbThrow = CrossPlatformInputManager.GetAxis("Vertical");
         Vector2 climbVelocity = new Vector2(myRigidBody.velocity.x, climbThrow * climbSpeed);
         myRigidBody.velocity = climbVelocity;
+        myRigidBody.gravityScale = 0f;
 
         bool playerHasVeritcalSpeed = Mathf.Abs(myRigidBody.velocity.y) > Mathf.Epsilon;
         myAnimator.SetBool("isClimbing", playerHasVeritcalSpeed);
